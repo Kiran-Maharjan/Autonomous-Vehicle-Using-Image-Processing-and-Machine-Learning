@@ -1,0 +1,23 @@
+to remove error in cost funciton the follwoing codes were removed:
+In functions used file inside nnCostFunction:
+line 36: c = np.zeros(num_labels)
+line 63: c[0] = 0
+line 64: for j in range(1,10):
+line 65: 	c[j] = j
+
+line 67: if (y[i] == 10):
+line 68: 	y[i] = 0
+
+line 70: newy = (c == y[i])
+
+Previously newy mentioned above was used as vector for actual output which was subtracted from h.
+In place of these codes follwoing code was used to generate a vector to represent actual output:
+
+init_y = np.zeros((m,num_labels))
+for i in range(m):
+    init_y[i][y[i]] = 1
+
+And inside the loop:
+'init_y[i][:,None]' replaced 'newy[:,None]'
+
+
